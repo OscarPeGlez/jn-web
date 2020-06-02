@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
+import FileUpload from './components/file-upload';
 import Menu from './components/menu-sidebar';
 import FurnitureInventory from './screens/categories/furnitures';
 import KitchenInventory from './screens/categories/kitchen';
@@ -14,6 +15,7 @@ const App: FC = () => {
       <Menu />
       <div className="main-content">
         <div className=" padding-topbar-xs hidden-lg hidden-md" />
+        <FileUpload />
         <BrowserRouter>
           <Switch>
             <Route exact path="/cocina">

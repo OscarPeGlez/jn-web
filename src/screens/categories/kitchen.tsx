@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
-import CreateProductModal from '../../components/modal-create-product';
+import AddElement from '../../components/modal-addElement';
 
 const KitchenInventory: FC = () => {
   return (
     <>
-      <CreateProductModal />
       <h1>Este es el faking listado de cocina :B</h1>
+      <AddElement />
     </>
   );
 };

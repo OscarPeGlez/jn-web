@@ -1,5 +1,6 @@
+import { Formik } from 'formik';
 import React, { FC, useState } from 'react';
-import { Button, Modal, Form } from 'react-bootstrap';
+import { Button, Form, FormControl, Modal } from 'react-bootstrap';
 
 const AddElement: FC = () => {
   const [show, setShow] = useState(false);
@@ -18,24 +19,54 @@ const AddElement: FC = () => {
           <Modal.Title>Agregar Elemento</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
-            <Form.Group controlId="formGroupEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
-            </Form.Group>
-            <Form.Group controlId="formGroupPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
-            </Form.Group>
-          </Form>
+          <Formik
+            initialValues={{ nombre: '', cantidad: 0 }}
+            validate={values => {
+              const errors: any = {};
+              if (!values.nombre) errors.nombre = 'Required';
+              return errors;
+            }}
+            onSubmit={values => console.log(values)}
+          >
+            {({
+              values,
+              errors,
+              touched,
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              isSubmitting,
+              /* and other goodies */
+            }) => (
+              <Form onSubmit={handleSubmit}>
+                <FormControl
+                  type="nombre"
+                  name="nombre"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.nombre}
+                />
+                {errors.nombre && touched.nombre && errors.nombre}
+                <FormControl
+                  type="cantidad"
+                  name="cantidad"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.cantidad}
+                />
+                {errors.cantidad && touched.cantidad && errors.cantidad}
+                <button type="submit" disabled={isSubmitting}>
+                  Submit
+                </button>
+              </Form>
+            )}
+          </Formik>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>f
+          <button type="submit">Save Changes</button>
         </Modal.Footer>
       </Modal>
     </>
